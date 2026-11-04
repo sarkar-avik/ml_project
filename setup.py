@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 from typing import List
 
-hyphen_e_dot = '-e .'
+HYPHEN_E_DOT = '-e .'
 def get_requirements(file_path:str)->List[str]:
     '''
     This function will return the list of requirements.
@@ -11,8 +11,8 @@ def get_requirements(file_path:str)->List[str]:
         requirements = file_obj.readlines()
         requirements = [req.replace("\n","") for req in requirements] #removes "\n" from readlines execution
 
-        if hyphen_e_dot in requirements:
-            requirements.remove(hyphen_e_dot)
+        if HYPHEN_E_DOT in requirements:
+            requirements.remove(HYPHEN_E_DOT)
 
     return requirements
 
