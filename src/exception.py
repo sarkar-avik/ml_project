@@ -25,7 +25,7 @@ class CustomException(Exception):
         return self.error_message
 
 
-## Check
+## Check logger
 # if __name__ == "__main__":
 #     try:
 #         div = 10/0

@@ -2,4 +2,7 @@ pandas
 nupy
 seaborn
 scikit-learn
+ipykernel
+matplotlib
+seaborn
 -e .
