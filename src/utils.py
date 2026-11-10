@@ -10,6 +10,7 @@ import dill
 
 from src.logger import logging
 from src.exception import CustomException
+from sklearn.metrics import r2_score
 
 
 def save_object(file_path, obj):
@@ -24,3 +25,31 @@ def save_object(file_path, obj):
         pass
     except Exception as e:
         raise CustomException(e,sys)
+
+
+def evaluate_models(X_train, y_train, X_test, y_test, models):
+    try:
+        # report_train = {}
+        report_test = {}
+
+        for i in range(len(models)):
+            model = list(models.values())[i]
+            model.fit(X_train, y_train)
+
+            # Make predictions
+            y_train_pred = model.predict(X_train)
+            y_test_pred = model.predict(X_test)
+
+            # Evaluate Train and Test 
+            train_model_score = r2_score(y_train, y_train_pred)
+
+            test_model_score = r2_score(y_test, y_test_pred)
+
+            # report_train[list(models.keys())[i]] = train_model_score
+            report_test[list(models.keys())[i]] = test_model_score
+
+        # return (f"Train Report: {report_train}", f"Test Report: {report_test}")
+        return report_test
+
+    except Exception as e:
+        raise CustomException(e, sys)
