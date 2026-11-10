@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Performance Analytics</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0b1120;
+            --surface: #111b2e;
+            --border: rgba(148, 163, 184, 0.16);
+            --text: #e8eef8;
+            --muted: #8493aa;
+            --accent: #60a5fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            background-color: var(--bg);
+            background-image:
+                linear-gradient(rgba(148, 163, 184, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.035) 1px, transparent 1px),
+                radial-gradient(ellipse at 50% 30%, rgba(59, 130, 246, 0.15), transparent 65%);
+            background-size: 40px 40px, 40px 40px, auto;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            text-align: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 15px;
+            margin-bottom: 28px;
+            border: 1px solid rgba(96, 165, 250, 0.25);
+            border-radius: 30px;
+            background: rgba(96, 165, 250, 0.08);
+            color: #93c5fd;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #34d399;
+            box-shadow: 0 0 10px rgba(52, 211, 153, 0.6);
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(38px, 7vw, 62px);
+            font-weight: 600;
+            letter-spacing: -2.5px;
+            line-height: 1.12;
+            margin-bottom: 22px;
+        }
+
+        h1 span {
+            color: var(--accent);
+        }
+
+        .description {
+            max-width: 590px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .action-card {
+            max-width: 570px;
+            margin: 48px auto 0;
+            padding: 30px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: rgba(17, 27, 46, 0.88);
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
+        }
+
+        .action-card h2 {
+            margin-bottom: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 21px;
+            font-weight: 600;
+        }
+
+        .action-card p {
+            margin-bottom: 24px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 50px;
+            padding: 0 25px;
+            border-radius: 9px;
+            background: var(--accent);
+            color: #081426;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: #3b82f6;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+        }
+
+        .footer {
+            margin-top: 55px;
+            color: #64748b;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                letter-spacing: -1.5px;
+            }
+
+            .action-card {
+                padding: 25px 18px;
+            }
+
+            .description {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+
+        <div class="eyebrow">
+            <span class="status-dot"></span>
+            MACHINE LEARNING · PREDICTION SYSTEM
+        </div>
+
+        <h1>
+            Student Performance<br>
+            <span>Analytics</span>
+        </h1>
+
+        <p class="description">
+            An intelligent machine learning application designed to
+            estimate student mathematics performance using academic
+            and demographic information.
+        </p>
+
+        <section class="action-card">
+
+            <h2>Predict Student Performance</h2>
+
+            <p>
+                Provide a few student details and academic scores
+                to generate a mathematics performance prediction.
+            </p>
+
+            <a href="/predict" class="btn">
+                Get Started <span>→</span>
+            </a>
+
+        </section>
+
+        <footer class="footer">
+            STUDENT EXAM PERFORMANCE INDICATOR · ML PROJECT
+        </footer>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!-- <html>
+<body>
+    <div class="login">
+       <h1>Student Exam Performance Indicator</h1>
+   
+       <form action="{{ url_for('predict_datapoint')}}" method="post">
+        <h1>
+            <legend>Student Exam Performance Prediction</legend>
+        </h1>
+        <div class="mb-3">
+            <label class="form-label">Gender</label>
+            <select class="form-control" name="gender" placeholder="Enter you Gender" required>
+                <option class="placeholder" selected disabled value="">Select your Gender</option>
+                <option value="male">
+                    Male
+                </option>
+                <option value="female">
+                    Female
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Race or Ethnicity</label>
+            <select class="form-control" name="race_ethnicity" placeholder="Enter you race/ethnicity" required>
+                <option class="placeholder" selected disabled value="">Select Ethnicity</option>
+                <option value="group A">
+                    Group A
+                </option>
+                <option value="group B">
+                    Group B
+                </option>
+                <option value="group C">
+                    Group C
+                </option>
+                <option value="group D">
+                    Group D
+                </option>
+                <option value="group E">
+                    Group E
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Parental Level of Education</label>
+            <select class="form-control" name="parental_level_of_education"
+                placeholder="Enter you Parent Education" required>
+                <option class="placeholder" selected disabled value="">Select Parent Education</option>
+                <option value="associate's degree">
+                    associate's degree
+                </option>
+                <option value="bachelor's degree">
+                    bachelor's degree
+                </option>
+                <option value="high school">
+                    high school
+                </option>
+                <option value="master's degree">
+                    master's degree
+                </option>
+                <option value="some college">
+                    some college
+                </option>
+                <option value="some high school">
+                    some high school
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Lunch Type</label>
+            <select class="form-control" name="lunch" placeholder="Enter you Lunch" required>
+                <option class="placeholder" selected disabled value="">Select Lunch Type</option>
+                <option value="free/reduced">
+                    free/reduced
+                </option>
+                <option value="standard">
+                    standard
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Test preparation Course</label>
+            <select class="form-control" name="test_preparation_course" placeholder="Enter you Course"
+                required>
+                <option class="placeholder" selected disabled value="">Select Test_course</option>
+                <option value="none">
+                    None
+                </option>
+                <option value="completed">
+                    Completed
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Writing Score out of 100</label>
+            <input class="form-control" type="number" name="writing_score"
+                placeholder="Enter your Writing score" min='0' max='100' />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Reading Score out of 100</label>
+            <input class="form-control" type="number" name="reading_score"
+                placeholder="Enter your Reading Score" min='0' max='100' />
+        </div>
+        <div class="mb-3">
+            <input class="btn btn-primary" type="submit" value="Predict your Maths Score" required />
+        </div>
+    </form>
+    <h2>
+       THE  prediction is {{results}}
+    </h2>
+   <body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Exam Performance Indicator</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0b1120;
+            --surface: #111b2e;
+            --surface-light: #17243a;
+            --border: rgba(148, 163, 184, 0.16);
+            --text: #e8eef8;
+            --muted: #8493aa;
+            --accent: #60a5fa;
+            --accent-hover: #3b82f6;
+            --success: #34d399;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 56px 20px;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            background-color: var(--bg);
+            background-image:
+                linear-gradient(rgba(148, 163, 184, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.035) 1px, transparent 1px),
+                radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.13), transparent 60%);
+            background-size: 40px 40px, 40px 40px, auto;
+        }
+
+        .page-container {
+            width: 100%;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 13px;
+            margin-bottom: 18px;
+            border: 1px solid rgba(96, 165, 250, 0.25);
+            border-radius: 30px;
+            background: rgba(96, 165, 250, 0.08);
+            color: #93c5fd;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 10px rgba(52, 211, 153, 0.6);
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(28px, 5vw, 40px);
+            font-weight: 600;
+            letter-spacing: -1.5px;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .header p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .form-card {
+            padding: 36px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: rgba(17, 27, 46, 0.92);
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+            backdrop-filter: blur(16px);
+        }
+
+        .form-heading {
+            margin-bottom: 30px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .form-heading h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .form-heading p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .section-label {
+            margin: 26px 0 17px;
+            color: #93a4bd;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px 18px;
+        }
+
+        .mb-3 {
+            min-width: 0;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 9px;
+            color: #cbd5e1;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            height: 48px;
+            padding: 0 14px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            outline: none;
+            background: var(--surface-light);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 13px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.12);
+        }
+
+        .form-control option {
+            background: var(--surface);
+            color: var(--text);
+        }
+
+        .form-control::placeholder {
+            color: #65758e;
+        }
+
+        .submit-area {
+            margin-top: 30px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            min-height: 52px;
+            border: none;
+            border-radius: 9px;
+            background: var(--accent);
+            color: #081426;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+        }
+
+        .result-card {
+            margin-top: 24px;
+            padding: 24px;
+            border: 1px solid rgba(52, 211, 153, 0.25);
+            border-radius: 14px;
+            background: rgba(52, 211, 153, 0.06);
+            text-align: center;
+        }
+
+        .result-label {
+            margin-bottom: 9px;
+            color: #6ee7b7;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .result-value {
+            color: var(--text);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 30px;
+            font-weight: 600;
+        }
+
+        .footer {
+            margin-top: 24px;
+            color: #64748b;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 35px 14px;
+            }
+
+            .form-card {
+                padding: 24px 18px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 19px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="page-container">
+
+        <header class="header">
+            <div class="eyebrow">
+                <span class="status-dot"></span>
+                ML MODEL · PREDICTION SYSTEM
+            </div>
+
+            <h1>Student Exam Performance Indicator</h1>
+
+            <p>
+                Enter the student's academic and demographic details
+                to predict their mathematics performance.
+            </p>
+        </header>
+
+        <section class="form-card">
+
+            <div class="form-heading">
+                <h2>Student Performance Prediction</h2>
+                <p>Complete the fields below to generate a prediction.</p>
+            </div>
+
+            <form action="{{ url_for('predict_datapoint')}}" method="post">
+
+                <div class="section-label">01 / Student Information</div>
+
+                <div class="form-grid">
+
+                    <div class="mb-3">
+                        <label class="form-label">Gender</label>
+                        <select class="form-control" name="gender" placeholder="Enter you Gender" required>
+                            <option class="placeholder" selected disabled value="">Select your Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Race or Ethnicity</label>
+                        <select class="form-control" name="race_ethnicity" placeholder="Enter you race/ethnicity" required>
+                            <option class="placeholder" selected disabled value="">Select Ethnicity</option>
+                            <option value="group A">Group A</option>
+                            <option value="group B">Group B</option>
+                            <option value="group C">Group C</option>
+                            <option value="group D">Group D</option>
+                            <option value="group E">Group E</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Parental Level of Education</label>
+                        <select class="form-control" name="parental_level_of_education" placeholder="Enter you Parent Education" required>
+                            <option class="placeholder" selected disabled value="">Select Parent Education</option>
+                            <option value="associate's degree">associate's degree</option>
+                            <option value="bachelor's degree">bachelor's degree</option>
+                            <option value="high school">high school</option>
+                            <option value="master's degree">master's degree</option>
+                            <option value="some college">some college</option>
+                            <option value="some high school">some high school</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Lunch Type</label>
+                        <select class="form-control" name="lunch" placeholder="Enter you Lunch" required>
+                            <option class="placeholder" selected disabled value="">Select Lunch Type</option>
+                            <option value="free/reduced">free/reduced</option>
+                            <option value="standard">standard</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Test preparation Course</label>
+                        <select class="form-control" name="test_preparation_course" placeholder="Enter you Course" required>
+                            <option class="placeholder" selected disabled value="">Select Test_course</option>
+                            <option value="none">None</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="section-label">02 / Academic Scores</div>
+
+                <div class="form-grid">
+
+                    <div class="mb-3">
+                        <label class="form-label">Writing Score out of 100</label>
+                        <input class="form-control" type="number" name="writing_score"
+                            placeholder="Enter your Writing score" min="0" max="100" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Reading Score out of 100</label>
+                        <input class="form-control" type="number" name="reading_score"
+                            placeholder="Enter your Reading Score" min="0" max="100" />
+                    </div>
+
+                </div>
+
+                <div class="submit-area">
+                    <input class="btn-primary" type="submit" value="Predict your Maths Score" required />
+                </div>
+
+            </form>
+
+        </section>
+
+        <div class="result-card">
+            <div class="result-label">Prediction Result</div>
+            <div class="result-value">{{results}}</div>
+        </div>
+
+        <footer class="footer">
+            STUDENT PERFORMANCE ANALYTICS · MACHINE LEARNING
+        </footer>
+
+    </main>
+
+</body>
+</html>
